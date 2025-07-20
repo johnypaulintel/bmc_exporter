@@ -1,0 +1,18 @@
+#verify if metric-exporter is running
+curl localhost:41611/metrics
+
+
+#verify if prometheus is running
+curl http://localhost:9090/-/healthy
+curl http://localhost:9090/targets
+
+#verify if grafana is running
+curl -i http://localhost:3000/
+curl -i http://localhost:3000/api/health
+
+#verify BMC-exporter is running
+curl --max-time 10 --connect-timeout 5 -s http://localhost:5000/metrics
+
+#ssh tunnel 
+ssh -i ./.ssh/id_ed25519 -L 3000:localhost:3000 sdp@10.98.57.88
+ssh -i ./.ssh/id_ed25519 -L 9090:localhost:9090 sdp@10.98.57.88
