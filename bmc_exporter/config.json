@@ -1,0 +1,13 @@
+{
+    "port": "5000",
+    "servers": [
+        {
+            "username": "username",
+            "password": "pass",
+ 
+            "_comment": "Bmc name/ip address",
+            "hostname": "123.123.123.123"
+ 
+        }
+    ]
+}

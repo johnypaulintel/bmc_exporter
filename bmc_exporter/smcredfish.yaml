@@ -1,0 +1,353 @@
+endpoints:
+  - apiPath: hl/oam
+    forEach:
+      jsonPath: Members
+      extraParam:
+        name: oam
+        regex: ([0-9]+)
+      endpoints:
+        - apiPath: "{{member}}/Info"
+          metrics:
+            - name: habana_bmc_info_serial_number
+              jsonPath: INFO.ASICSerialNumber
+            - name: habana_bmc_info_board_serial_number
+              jsonPath: INFO.boardSerialNumber
+            - name: habana_bmc_info_management_firmware_version
+              jsonPath: INFO.managementFirmwareVersion
+        - apiPath: "{{member}}/Status"
+          metrics:
+            - name: habana_bmc_status_global_time_from_reset
+              jsonPath: STATUS.globalTimeFromReset
+            - name: habana_bmc_status_device_activity_counter
+              jsonPath: STATUS.deviceActivityCounter
+            - name: habana_bmc_status_health_state
+              jsonPath: STATUS.healthState
+            - name: habana_bmc_status_boot_stage
+              jsonPath: STATUS.bootStage
+            - name: habana_bmc_status_chip_status
+              jsonPath: STATUS.chipStatus
+            - name: habana_bmc_status_device_activity
+              jsonPath: STATUS.deviceActivity
+            - name: habana_bmc_status_power_state
+              jsonPath: STATUS.powerState
+            - name: habana_bmc_status_emergency_break
+              jsonPath: STATUS.emergencyBreak
+            - name: habana_bmc_status_power_break
+              jsonPath: STATUS.powerBreak
+            - name: habana_bmc_status_power_reduction
+              jsonPath: STATUS.powerReduction
+            - name: habana_bmc_status_clock_throttling_caused_by_power
+              jsonPath: STATUS.clockThrottlingCausedbyPower
+            - name: habana_bmc_status_clock_throttling_caused_by_thermal
+              jsonPath: STATUS.clockThrottlingCausedbyThermal
+            - name: habana_bmc_status_hbm_throttling
+              jsonPath: STATUS.HBMThrottling
+            - name: habana_bmc_status_last_power_reduction_duration
+              jsonPath: STATUS.lastPowerReductionDuration
+            - name: habana_bmc_status_last_power_break_duration
+              jsonPath: STATUS.lastPowerBreakDuration
+            - name: habana_bmc_status_last_clock_throttling_duration
+              jsonPath: STATUS.lastClockThrottlingDuration
+            - name: habana_bmc_status_total_clock_throttling_duration
+              jsonPath: STATUS.totalClockThrottlingDuration
+            - name: habana_bmc_status_hbm_throttling_duration
+              jsonPath: STATUS.HBMThrottlingDuration
+            - name: habana_bmc_status_internal_interconnect_errors
+              jsonPath: STATUS.internalInterconnectErrors
+        - apiPath: "{{member}}/Temperature"
+          metrics:
+            # Ctemperature
+            - name: habana_bmc_ctemperature
+              jsonPath: TEMPERATURE.CompositeTemperature
+            - name: habana_bmc_ctemperature_threshold_upper_critical
+              jsonPath: TEMPERATURE.CompositeTemperatureErrorThreshold
+            - name: habana_bmc_ctemperature_threshold_upper_caution
+              jsonPath: TEMPERATURE.CompositeTemperatureWarningThreshold
+            # SOC temperature
+            - name: habana_bmc_temperature_current_soc_temperature
+              jsonPath: TEMPERATURE.CurrentSOCTemperature
+            - name: habana_bmc_temperature_current_soc_temperature_threshold_upper_critical
+              jsonPath: TEMPERATURE.CurrentSOCTemperatureErrorThreshold
+            - name: habana_bmc_temperature_current_soc_temperature_threshold_upper_caution
+              jsonPath: TEMPERATURE.CurrentSOCTemperatureWarningThreshold
+            - name: habana_bmc_temperature_historical_soc_temperature
+              jsonPath: TEMPERATURE.HistoricalSOCTemperature
+            # HBM temperature
+            - name: habana_bmc_temperature_current_hbm_temperature
+              jsonPath: TEMPERATURE.CurrentHBMTemperature
+            - name: habana_bmc_temperature_current_hbm_temperature_threshold_upper_critical
+              jsonPath: TEMPERATURE.CurrentHBMTemperatureErrorThreshold
+            - name: habana_bmc_temperature_current_hbm_temperature_threshold_upper_caution
+              jsonPath: TEMPERATURE.CurrentHBMTemperatureWarningThreshold
+            - name: habana_bmc_temperature_historical_hbm_temperature
+              jsonPath: TEMPERATURE.HistoricalHBMTemperature
+            # VRM
+            - name: habana_bmc_temperature_current_vrm_temperature
+              jsonPath: TEMPERATURE.CurrentVRMTemperature
+            - name: habana_bmc_temperature_historical_vrm_temperature
+              jsonPath: TEMPERATURE.HistoricalVRMTemperature
+            # Board
+            - name: habana_bmc_temperature_current_board_temperature
+              jsonPath: TEMPERATURE.CurrentBoardTemperature
+            - name: habana_bmc_temperature_historical_board_temperature
+              jsonPath: TEMPERATURE.HistoricalBoardTemperature
+            # Aux
+            - name: habana_bmc_temperature_max_temperature_rise_time
+              jsonPath: TEMPERATURE.MaxTemperatureRiseTime
+        - apiPath: "{{member}}/Power"
+          metrics:
+            - name: habana_bmc_power_current_adc48v
+              jsonPath: POWER.CurrentADC48VPower
+            - name: habana_bmc_power_current_adc12v
+              jsonPath: POWER.CurrentADC12VPower
+            - name: habana_bmc_power_current_soc54v
+              jsonPath: POWER.CurrentSOC54VPower
+            - name: habana_bmc_power_peak_soc54v
+              jsonPath: POWER.PeakSOC54VPower
+            - name: habana_bmc_power_peak_soc12v
+              jsonPath: POWER.PeakSOC12VPower
+            - name: habana_bmc_power_limit_max_power_envelope_54v_tdp
+              jsonPath: POWER.LimitMaxPowerEnvelope54VTDP
+        - apiPath: "{{member}}/HBM"
+          metrics:
+            - name: habana_bmc_hbm_single_ecc_burst_count
+              jsonPath: HBM.SingleECCBurstCount
+            - name: habana_bmc_hbm_double_ecc_event_count
+              jsonPath: HBM.DoubleECCEventCount
+            - name: habana_bmc_hbm_fatal_ecc_location_count
+              jsonPath: HBM.FatalECCLocationCount
+            - name: habana_bmc_hbm_total_single_ecc_count
+              jsonPath: HBM.TotalSingleECCCount
+            - name: habana_bmc_hbm_total_double_ecc_count
+              jsonPath: HBM.TotalDoubleECCCount
+            - name: habana_bmc_hbm_fatal_ecc_event_count
+              jsonPath: HBM.FatalECCEventCount
+            - name: habana_bmc_hbm_single_ecc_burst_count_threshold
+              jsonPath: HBM.SingleECCBurstCountThreshold
+            - name: habana_bmc_hbm_fatal_parity
+              jsonPath: HBM.FatalParity
+            - name: habana_bmc_hbm_hbm0_global_ecc
+              jsonPath: HBM.HBM0GlobalECC
+            - name: habana_bmc_hbm_hbm1_global_ecc
+              jsonPath: HBM.HBM1GlobalECC
+            - name: habana_bmc_hbm_hbm2_global_ecc
+              jsonPath: HBM.HBM2GlobalECC
+            - name: habana_bmc_hbm_hbm3_global_ecc
+              jsonPath: HBM.HBM3GlobalECC
+            - name: habana_bmc_hbm_hbm4_global_ecc
+              jsonPath: HBM.HBM4GlobalECC
+            - name: habana_bmc_hbm_hbm5_global_ecc
+              jsonPath: HBM.HBM5GlobalECC
+            - name: habana_bmc_hbm_hbm6_global_ecc
+              jsonPath: HBM.HBM6GlobalECC
+            - name: habana_bmc_hbm_hbm7_global_ecc
+              jsonPath: HBM.HBM7GlobalECC
+            - name: habana_bmc_hbm_hbm0_lanes_repaired
+              jsonPath: HBM.HBM0LanesRepaired
+            - name: habana_bmc_hbm_hbm1_lanes_repaired
+              jsonPath: HBM.HBM1LanesRepaired
+            - name: habana_bmc_hbm_hbm2_lanes_repaired
+              jsonPath: HBM.HBM2LanesRepaired
+            - name: habana_bmc_hbm_hbm3_lanes_repaired
+              jsonPath: HBM.HBM3LanesRepaired
+            - name: habana_bmc_hbm_hbm4_lanes_repaired
+              jsonPath: HBM.HBM4LanesRepaired
+            - name: habana_bmc_hbm_hbm5_lanes_repaired
+              jsonPath: HBM.HBM5LanesRepaired
+            - name: habana_bmc_hbm_hbm6_lanes_repaired
+              jsonPath: HBM.HBM6LanesRepaired
+            - name: habana_bmc_hbm_hbm7_lanes_repaired
+              jsonPath: HBM.HBM7LanesRepaired
+            - name: habana_bmc_hbm_total_changeable_row_replacements
+              jsonPath: HBM.TotalChangeableRowReplacements
+            - name: habana_bmc_hbm_total_non_changeable_row_replacements
+              jsonPath: HBM.TotalNon-ChangeableRowReplacements
+            - name: habana_bmc_hbm_banks_with_no_replaced_rows
+              jsonPath: HBM.BanksWithNoReplacedRows
+            - name: habana_bmc_hbm_banks_with_low_replaced_rows
+              jsonPath: HBM.BanksWithLowReplacedRows
+            - name: habana_bmc_hbm_banks_with_partial_replaced_rows
+              jsonPath: HBM.BanksWithPartialReplacedRows
+            - name: habana_bmc_hbm_banks_with_high_replaced_rows
+              jsonPath: HBM.BanksWithHighReplacedRows
+            - name: habana_bmc_hbm_banks_with_max_replaced_rows
+              jsonPath: HBM.BanksWithMaxReplacedRows
+        - apiPath: "{{member}}/Alert"
+          metrics:
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.CHECKSUM.non-VolatileMemory.EEPROM
+              extraLabels:
+                description: "Checksum - EEPROM Device Error"
+                error_type: "CHECKSUM_EEPROM_DEVICE_ERR"
+                time: ""
+                severity: "Error"
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.CHECKSUM.non-VolatileMemory.ppBootPrimary
+              extraLabels:
+                description: "Checksum - Pre-PreBoot Primary mismatch"
+                error_type: "CHECKSUM_PPBOOT_PRIMARY_ERR"
+                time: ""
+                severity: "Error"
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.CHECKSUM.non-VolatileMemory.ppBootSecondary
+              extraLabels:
+                description: "Checksum - Pre-PreBoot Secondary mismatch"
+                error_type: "CHECKSUM_PPBOOT_SECONDARY_ERR"
+                time: ""
+                severity: "Error"
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.CHECKSUM.non-VolatileMemory.preBootPrimary
+              extraLabels:
+                description: "Checksum - PreBoot Primary mismatch"
+                error_type: "CHECKSUM_PREBOOT_PRIMARY_ERR"
+                time: ""
+                severity: "Error"
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.CHECKSUM.non-VolatileMemory.preBootSecondary
+              extraLabels:
+                description: "Checksum - PreBoot Secondary mismatch"
+                error_type: "CHECKSUM_PREBOOT_SECONDARY_ERR"
+                time: ""
+                severity: "Error"
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.D2D.CoreIndex
+              extraLabels:
+                description: "D2D Core Index"
+                error_type: "D2D_CORE_INDEX"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.D2D.ErrorCount
+              extraLabels:
+                description: "D2D Error Count"
+                error_type: "D2D_ERROR_COUNT"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.D2D.ErrorState
+              extraLabels:
+                description: "D2D Error State"
+                error_type: "D2D_ERROR_STATE"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.D2D.MACIndex
+              extraLabels:
+                description: "D2D MAC Index"
+                error_type: "D2D_MAC_INDEX"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.PLLLock.FirstPLLLockIndex
+              extraLabels:
+                description: "PLL Lock Error"
+                error_type: "PLL_LOCK_ERR"
+                time: ""
+                severity: "Critical"
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.FatalRMA.D2DFatalReplay
+              extraLabels:
+                description: "D2D Fatal Replay"
+                error_type: "D2D_FATAL_REPLAY"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.FatalRMA.D2DFatalTraining
+              extraLabels:
+                description: "D2D Fatal Training"
+                error_type: "D2D_FATAL_TRAINING"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.FatalRMA.SPI-GWFatalReplay
+              extraLabels:
+                description: "SPIGW Fatal Replay"
+                error_type: "SPIGW_FATAL_REPLAY"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.Security.SinatureFailure.RevokedPublicKey
+              extraLabels:
+                description: "Revoked Public Key"
+                error_type: "REVOKED_PUBLIC_KEY"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.Security.SinatureFailure.Signature
+              extraLabels:
+                description: "Signature"
+                error_type: "SIGNATURE"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.Security.SPIFailure.RevokedPublicKey
+              extraLabels:
+                description: "Revoked Public Key"
+                error_type: "REVOKED_PUBLIC_KEY"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.Security.SPIFailure.Signature
+              extraLabels:
+                description: "Signature"
+                error_type: "SIGNATURE"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.Security.SPIFailure.SVN
+              extraLabels:
+                description: "SVN"
+                error_type: "SVN"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.SPIGW.ErrorCount
+              extraLabels:
+                description: "SPIGW Error Count"
+                error_type: "SPIGW_ERROR_COUNT"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.Voltage.ChannelIndex
+              extraLabels:
+                description: "Voltage Channel Index"
+                error_type: "VOLTAGE_CHANNEL_INDEX"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.Voltage.MonitorIndex
+              extraLabels:
+                description: "Voltage Monitor Index"
+                error_type: "VOLTAGE_MONITOR_INDEX"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.Voltage.VoltageState
+              extraLabels:
+                description: "Voltage State"
+                error_type: "VOLTAGE_STATE"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.WD.Heartbeat
+              extraLabels:
+                description: "Heartbeat"
+                error_type: "HEARTBEAT"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.WD.HW
+              extraLabels:
+                description: "HW"
+                error_type: "HW"
+                time: ""
+                severity: ""
+            - name: habana_bmc_alerts
+              jsonPath: ALERT.WD.TDR
+              extraLabels:
+                description: "TDR"
+                error_type: "TDR"
+                time: ""
+                severity: ""
+        
+
