@@ -18,3 +18,14 @@
    curl http://localhost:9090/-/healthy
    curl http://localhost:9090/targets
    ```
+
+## Additional info
+
+Sample YAML file that decribes BMC mapping for SMC server: [bmc_exporter/smcredfish.yaml](bmc_exporter/smcredfish.yaml)
+Currently it supports following metrics/information:
+- Basic card information: `habana_bmc_info_{metric_name}`
+- Card status: `habana_bmc_status_{metric_name}`
+- Card temperature: `habana_bmc_temperature_{metric_name}`, `habana_bmc_ctemperature`, `habana_bmc_ctemperature_{metric_name}`
+- Card power information: `habana_bmc_power_{metric_name}`
+- Card's HBM information: `habana_bmc_hbm_{metric_name}`
+- Card's alerts: `habana_bmc_alerts`
