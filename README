@@ -1,18 +1,20 @@
-#verify if metric-exporter is running
-curl localhost:41611/metrics
+# Steps
 
-
-#verify if prometheus is running
-curl http://localhost:9090/-/healthy
-curl http://localhost:9090/targets
-
-#verify if grafana is running
-curl -i http://localhost:3000/
-curl -i http://localhost:3000/api/health
-
-#verify BMC-exporter is running
-curl --max-time 10 --connect-timeout 5 -s http://localhost:5000/metrics
-
-#ssh tunnel 
-ssh -i ./.ssh/id_ed25519 -L 3000:localhost:3000 sdp@10.98.57.88
-ssh -i ./.ssh/id_ed25519 -L 9090:localhost:9090 sdp@10.98.57.88
+0. Use branch `smc`
+1. Configure BMC IP, username, and password in [bmc_exporter/config.json](bmc_exporter/config.json)
+2. Start bmc-exporter container
+   ```sh
+   ./bmcexporter_container.sh
+   ```
+3. Followed by Prometheus container
+   ```sh
+   ./prometheus_container.sh
+   ```
+4. Confirm that everything is running by `docker ps`
+5. Check logs from bmc-exporter container, make sure there're no errors: `docker logs bmc-exporter`
+6. Check output of bmc-exporter by `curl localhost:5000/metrics`
+7. Check the output of Prometheus:
+   ```sh
+   curl http://localhost:9090/-/healthy
+   curl http://localhost:9090/targets
+   ```
